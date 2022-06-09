@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root :to => 'home#index'
-  get '/products', :to => 'products#index'
+
   mount ShopifyApp::Engine, at: '/api'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # Any other routes will just render the react app
+  match '*path' => 'home#index', via: [:get, :post]
 end

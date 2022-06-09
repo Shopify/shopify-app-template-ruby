@@ -11,6 +11,10 @@ ShopifyApp.configure do |config|
 
   config.reauth_on_access_scope_changes = true
 
+  config.root_url = '/api'
+  config.login_url = '/api/auth'
+  config.login_callback_url = '/api/auth/callback'
+
   config.api_key = ENV.fetch('SHOPIFY_API_KEY', '').presence
   config.secret = ENV.fetch('SHOPIFY_API_SECRET', '').presence
 

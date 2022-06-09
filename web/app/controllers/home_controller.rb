@@ -5,8 +5,12 @@ class HomeController < ApplicationController
   include ShopifyApp::RequireKnownShop
   include ShopifyApp::ShopAccessScopesVerification
 
+  DEV_INDEX_PATH = Rails.root.join('frontend')
+  PROD_INDEX_PATH = Rails.root.join('frontend/dist')
+
   def index
-    @shop_origin = current_shopify_domain
-    @host = params[:host]
+    contents = File.read(File.join(Rails.env.production? ? PROD_INDEX_PATH : DEV_INDEX_PATH, 'index.html'))
+
+    render plain: contents, content_type: 'text/html', layout: false
   end
 end
