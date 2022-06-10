@@ -1,0 +1,37 @@
+on: [push, pull_request]
+name: CI
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_API_KEY: test-api-key
+      SHOPIFY_API_SECRET: test-secret-key
+      SCOPES: write_products
+      HOST: app-host-name.io
+      BUNDLE_GEMFILE: ${{ github.workspace }}/web/Gemfile
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "2.7"
+          - "3.0"
+          - "3.1"
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Set up Ruby ${{ matrix.version }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.version }}
+          bundler-cache: true
+
+      - name: Run tests
+        run: bin/rails test
+
+      - name: Run RuboCop
+        run: bundle exec rubocop --parallel -c ./rubocop.yml
