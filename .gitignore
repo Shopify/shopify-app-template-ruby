@@ -1,4 +1,6 @@
 yarn.lock
 package-lock.json
 
+web/Gemfile.lock
+
 **/node_modules
