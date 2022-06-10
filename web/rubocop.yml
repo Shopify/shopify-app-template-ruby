@@ -4,6 +4,8 @@ inherit_gem:
 AllCops:
   TargetRubyVersion: 3.1
   Exclude:
+    - "db/**/*"
+    - "bin/**/*"
     - "test/tmp/**/*"
     - "vendor/bundle/**/*"
 
