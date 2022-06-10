@@ -1,3 +1,4 @@
 regular_shop:
-  shopify_domain: 'regular-shop.myshopify.com'
-  shopify_token: 'token'
+  shopify_domain: "regular-shop.myshopify.com"
+  shopify_token: "token"
+  access_scopes: "read_products"
