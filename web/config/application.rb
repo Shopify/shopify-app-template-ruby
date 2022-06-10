@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "boot"
 
 require "rails/all"
@@ -9,7 +11,7 @@ Bundler.require(*Rails.groups)
 module ShopifyAppTemplateRuby
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults(7.0)
 
     config.assets.prefix = "/api/assets"
 
