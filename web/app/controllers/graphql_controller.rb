@@ -9,7 +9,11 @@ class GraphqlController < AuthenticatedController
 
     render(json: response.body, status: response.code.to_i)
   rescue => e
-    logger.info("Failed to run GraphQL proxy query: #{e.message}")
-    render(json: "Failed to run GraphQL proxy query", status: 500)
+    message = "Failed to run GraphQL proxy query: #{e.message}"
+
+    code = e.is_a?(ShopifyAPI::Errors::HttpResponseError) ? e.code : 500
+
+    logger.info(message)
+    render(json: message, status: code)
   end
 end
