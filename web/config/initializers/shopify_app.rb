@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
 ShopifyApp.configure do |config|
+  config.webhooks = [
+    { topic: "shop/redact", address: "api/webhooks/shop_redact" },
+    { topic: "customers/redact", address: "api/webhooks/customers_redact" },
+    { topic: "customers/data_request", address: "api/webhooks/customers_data_request" },
+    { topic: "app/uninstalled", address: "api/webhooks/app_uninstalled" },
+  ]
   config.application_name = "My Shopify App"
   config.old_secret = ""
   config.scope = ENV.fetch("SCOPES", "write_products") # See shopify.app.toml for scopes
+  # Consult this page for more scope options: https://shopify.dev/api/usage/access-scopes
   config.embedded_app = true
   config.after_authenticate_job = false
   config.api_version = ShopifyAPI::AdminVersions::LATEST_SUPPORTED_ADMIN_VERSION
