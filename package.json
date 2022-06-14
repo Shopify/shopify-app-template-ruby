@@ -8,7 +8,8 @@
     "dev": "shopify app dev",
     "push": "shopify app push",
     "scaffold": "shopify app scaffold",
-    "deploy": "shopify app deploy"
+    "deploy": "shopify app deploy",
+    "info": "shopify app info"
   },
   "dependencies": {
     "@shopify/app": "^3.0.0",
