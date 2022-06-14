@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   mount ShopifyApp::Engine, at: "/api"
+  get "/api", to: redirect(path: "/") # Needed because our engine root is /api but that breaks FE routing
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
