@@ -5,25 +5,6 @@ ShopifyApp.configure do |config|
     # After a store owner uninstalls your app, Shopify invokes the APP_UNINSTALLED webhook
     # to let your app know.
     { topic: "app/uninstalled", address: "api/webhooks/app_uninstalled" },
-
-    # NOTE 1: To register the URLs for the three GDPR topics that follow, please set the appropriate
-    # webhook endpoint in the 'GDPR mandatory webhooks' section of 'App setup' in the Partners Dashboard.
-    #
-    # NOTE 2: The code that processes these webhooks is located in the `app/jobs` directory.
-    #
-    # 48 hours after a store owner uninstalls your app, Shopify invokes this SHOP_REDACT webhook.
-    # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#shop-redact
-    { topic: "shop/redact", address: "api/webhooks/shop_redact" },
-
-    # Store owners can request that data is deleted on behalf of a customer. When this happens,
-    # Shopify invokes this CUSTOMERS_REDACT webhook to let your app know.
-    # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#customers-redact
-    { topic: "customers/redact", address: "api/webhooks/customers_redact" },
-
-    # Customers can request their data from a store owner. When this happens, Shopify invokes
-    # this CUSTOMERS_DATA_REQUEST webhook to let your app know.
-    # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#customers-data_request
-    { topic: "customers/data_request", address: "api/webhooks/customers_data_request" },
   ]
   config.application_name = "My Shopify App"
   config.old_secret = ""
@@ -66,6 +47,36 @@ Rails.application.config.after_initialize do
       user_agent_prefix: "ShopifyApp/#{ShopifyApp::VERSION}"
     )
 
+    add_gdpr_webhooks
     ShopifyApp::WebhooksManager.add_registrations
+  end
+end
+
+def add_gdpr_webhooks
+  gdpr_webhooks = [
+    # NOTE 1: To register the URLs for the three GDPR topics that follow, please set the appropriate
+    # webhook endpoint in the 'GDPR mandatory webhooks' section of 'App setup' in the Partners Dashboard.
+    #
+    # NOTE 2: The code that processes these webhooks is located in the `app/jobs` directory.
+    #
+    # 48 hours after a store owner uninstalls your app, Shopify invokes this SHOP_REDACT webhook.
+    # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#shop-redact
+    { topic: "shop/redact", address: "api/webhooks/shop_redact" },
+
+    # Store owners can request that data is deleted on behalf of a customer. When this happens,
+    # Shopify invokes this CUSTOMERS_REDACT webhook to let your app know.
+    # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#customers-redact
+    { topic: "customers/redact", address: "api/webhooks/customers_redact" },
+
+    # Customers can request their data from a store owner. When this happens, Shopify invokes
+    # this CUSTOMERS_DATA_REQUEST webhook to let your app know.
+    # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#customers-data_request
+    { topic: "customers/data_request", address: "api/webhooks/customers_data_request" },
+  ]
+
+  ShopifyApp.configuration.webhooks = if ShopifyApp.configuration.has_webhooks?
+    ShopifyApp.configuration.webhooks.concat(gdpr_webhooks)
+  else
+    gdpr_webhooks
   end
 end
