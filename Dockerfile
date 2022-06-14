@@ -1,9 +1,9 @@
-FROM ruby:3.1
+FROM ruby:3.1-alpine
 
 ARG SHOPIFY_API_KEY
 ENV SHOPIFY_API_KEY=$SHOPIFY_API_KEY
 
-RUN apt-get update -qq && apt-get install -y nodejs npm git
+RUN apk update && apk add nodejs npm git build-base sqlite-dev gcompat bash
 WORKDIR /app
 
 COPY web .
