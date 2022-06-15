@@ -17,8 +17,4 @@ RUN rake build:all
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
-EXPOSE 3000
-
 ENTRYPOINT ["entrypoint.sh"]
-
-CMD ["rails", "server", "-b", "0.0.0.0", "-e", "production"]
