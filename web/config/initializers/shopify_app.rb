@@ -54,10 +54,9 @@ end
 
 def add_gdpr_webhooks
   gdpr_webhooks = [
-    # NOTE 1: To register the URLs for the three GDPR topics that follow, please set the appropriate
+    # NOTE: To register the URLs for the three GDPR topics that follow, please set the appropriate
     # webhook endpoint in the 'GDPR mandatory webhooks' section of 'App setup' in the Partners Dashboard.
-    #
-    # NOTE 2: The code that processes these webhooks is located in the `app/jobs` directory.
+    # The code that processes these webhooks is located in the `app/jobs` directory.
     #
     # 48 hours after a store owner uninstalls your app, Shopify invokes this SHOP_REDACT webhook.
     # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#shop-redact

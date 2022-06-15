@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AppUninstalledJob < ActiveJob::Base
   extend ShopifyAPI::Webhooks::Handler
 
@@ -17,9 +19,7 @@ class AppUninstalledJob < ActiveJob::Base
 
     logger.info("#{self.class} started for shop '#{shop_domain}'")
     users = User.where(shopify_domain: shop_domain)
-    users.each do |user|
-      user.destroy
-    end
+    users.each(&:destroy)
     shop.destroy
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CustomersRedactJob < ActiveJob::Base
   extend ShopifyAPI::Webhooks::Handler
 
