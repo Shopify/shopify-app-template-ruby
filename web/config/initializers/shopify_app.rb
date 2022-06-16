@@ -22,6 +22,19 @@ ShopifyApp.configure do |config|
   config.login_url = "/api/auth"
   config.login_callback_url = "/api/auth/callback"
 
+  # You may want to charge merchants for using your app. Setting the billing configuration will cause the Authenticated
+  # controller concern to check that the session is for a merchant that has an active one-time payment or subscription.
+  # If no payment is found, it starts off the process and sends the merchant to a confirmation URL so that they can
+  # approve the purchase.
+  #
+  # Learn more about billing in our documentation: https://shopify.dev/apps/billing
+  # config.billing = ShopifyApp::BillingConfiguration.new(
+  #   charge_name: "My app billing charge",
+  #   amount: 5,
+  #   interval: ShopifyApp::BillingConfiguration::INTERVAL_ANNUAL,
+  #   currency_code: "USD", # Only supports USD for now
+  # )
+
   config.api_key = ENV.fetch("SHOPIFY_API_KEY", "").presence
   config.secret = ENV.fetch("SHOPIFY_API_SECRET", "").presence
 
