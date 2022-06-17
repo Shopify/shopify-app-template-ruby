@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   include ShopifyApp::ShopAccessScopesVerification
 
   DEV_INDEX_PATH = Rails.root.join("frontend")
-  PROD_INDEX_PATH = Rails.root.join("frontend/dist")
+  PROD_INDEX_PATH = Rails.public_path.join("dist")
 
   def index
     contents = File.read(File.join(Rails.env.production? ? PROD_INDEX_PATH : DEV_INDEX_PATH, "index.html"))
