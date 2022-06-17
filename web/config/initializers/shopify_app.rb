@@ -57,7 +57,7 @@ Rails.application.config.after_initialize do
       session_storage: ShopifyApp::SessionRepository,
       logger: Rails.logger,
       private_shop: ENV.fetch("SHOPIFY_APP_PRIVATE_SHOP", nil),
-      user_agent_prefix: "ShopifyApp/#{ShopifyApp::VERSION}"
+      user_agent_prefix: "Ruby App Template/#{app_template_version} | ShopifyApp/#{ShopifyApp::VERSION}"
     )
 
     add_gdpr_webhooks
@@ -90,5 +90,14 @@ def add_gdpr_webhooks
     ShopifyApp.configuration.webhooks.concat(gdpr_webhooks)
   else
     gdpr_webhooks
+  end
+end
+
+def app_template_version
+  template_version = Rails.root.join("version.txt")
+  if File.exist?(template_version)
+    File.read(template_version).squish
+  else
+    "unknown"
   end
 end
