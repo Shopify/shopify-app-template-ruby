@@ -81,10 +81,9 @@ def add_gdpr_webhooks
 end
 
 def app_template_version
-  package_json_file = Rails.root.join("../package.json")
-  if File.exist?(package_json_file)
-    package_json = JSON.parse(File.read(package_json_file))
-    package_json["version"] || "unknown"
+  template_version = Rails.root.join("version.txt")
+  if File.exist?(template_version)
+    File.read(template_version).squish
   else
     "unknown"
   end
