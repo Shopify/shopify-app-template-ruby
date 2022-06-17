@@ -6,7 +6,7 @@ namespace :build do
 
   desc "Build symlinks for FE assets"
   task build_frontend_links: :environment do
-    index_path = File.join(__dir__, "../../public/index.html")
+    index_path = File.join(__dir__, "../../public/dist/index.html")
     assets_path = File.join(__dir__, "../../public/assets")
 
     File.symlink(File.join(__dir__, "../../frontend/dist/index.html"), index_path) unless File.symlink?(index_path)
