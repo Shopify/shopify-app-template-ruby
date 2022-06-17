@@ -195,7 +195,7 @@ If you're manually building (for instance when deploying the `web` folder to pro
 cd web/frontend
 SHOPIFY_API_KEY=REPLACE_ME yarn build
 cd ..
-composer build
+rake build:all
 ```
 
 ## Hosting
