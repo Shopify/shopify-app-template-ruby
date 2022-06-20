@@ -1,5 +1,11 @@
 # Release history
 
+1.0.1 (June 20, 2022)
+----------
+
+* (Allow Ngrok v3 URLs)[https://github.com/Shopify/shopify-app-template-ruby/pull/18]
+
+
 1.0.0 (June 20, 2022)
 ----------
 
