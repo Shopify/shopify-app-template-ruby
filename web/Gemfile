@@ -76,7 +76,4 @@ group :test do
   gem "webmock"
 end
 
-# TODO: Pull from the latest release once this change is published
-git "https://github.com/Shopify/shopify_app.git" do
-  gem "shopify_app", "~> 19.0"
-end
+gem "shopify_app", "~> 19.0"
