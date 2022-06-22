@@ -58,7 +58,7 @@ yarn create @shopify/app --template ruby
 Using npx:
 
 ```shell
-npm init @shopify/app --template ruby
+npm init @shopify/app@latest --template ruby
 ```
 
 Using pnpm:
