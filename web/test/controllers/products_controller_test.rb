@@ -31,7 +31,39 @@ class ProductsControllerTestTest < ActionDispatch::IntegrationTest
     ShopifyAPI::Context.load_rest_resources(api_version: "2022-04")
   end
 
-  test "makes successful request" do
+  test "handles creating products" do
+    token = JWT.encode(JWT_PAYLOAD, ShopifyAPI::Context.api_secret_key, "HS256")
+    stub = stub_request(:post, "https://regular-shop.myshopify.com/admin/api/2022-04/graphql.json")
+      .with(headers: { "X-Shopify-Access-Token" => "access-token" })
+      .to_return(status: 200, body: JSON.dump({}))
+
+    ShopifyAPI::Utils::SessionUtils.stub(:load_current_session, SESSION) do
+      get "/api/products/create",
+        xhr: true,
+        headers: { "HTTP_AUTHORIZATION": "Bearer #{token}" }
+
+      assert_response :success
+      assert_equal({"success" => true, "error" => nil}, JSON.parse(@response.body))
+    end
+  end
+
+  test "handles product creation errors" do
+    token = JWT.encode(JWT_PAYLOAD, ShopifyAPI::Context.api_secret_key, "HS256")
+    stub = stub_request(:post, "https://regular-shop.myshopify.com/admin/api/2022-04/graphql.json")
+      .with(headers: { "X-Shopify-Access-Token" => "access-token" })
+      .to_return(status: 400, body: JSON.dump({errors: "Something went wrong"}))
+
+    ShopifyAPI::Utils::SessionUtils.stub(:load_current_session, SESSION) do
+      get "/api/products/create",
+        xhr: true,
+        headers: { "HTTP_AUTHORIZATION": "Bearer #{token}" }
+
+      assert_response :bad_request
+      assert_equal({"success" => false, "error" => "Something went wrong"}, JSON.parse(@response.body))
+    end
+  end
+
+  test "makes successful count request" do
     response_body = { count: 10 }
     token = JWT.encode(JWT_PAYLOAD, ShopifyAPI::Context.api_secret_key, "HS256")
     stub_request(:get, "https://regular-shop.myshopify.com/admin/api/2022-04/products/count.json")
@@ -39,7 +71,7 @@ class ProductsControllerTestTest < ActionDispatch::IntegrationTest
       .to_return(status: 200, body: JSON.dump(response_body))
 
     ShopifyAPI::Utils::SessionUtils.stub(:load_current_session, SESSION) do
-      get "/api/products-count",
+      get "/api/products/count",
         xhr: true,
         headers: { "HTTP_AUTHORIZATION": "Bearer #{token}" }
 
@@ -53,7 +85,7 @@ class ProductsControllerTestTest < ActionDispatch::IntegrationTest
     token = JWT.encode(JWT_PAYLOAD, ShopifyAPI::Context.api_secret_key, "HS256")
 
     ShopifyAPI::Utils::SessionUtils.stub(:load_current_session, nil) do
-      get "/api/products-count",
+      get "/api/products/count",
         xhr: true,
         headers: { "HTTP_AUTHORIZATION": "Bearer #{token}" }
 

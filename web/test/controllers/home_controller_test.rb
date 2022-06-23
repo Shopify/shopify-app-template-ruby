@@ -14,15 +14,6 @@ class HomeControllerTestTest < ActionDispatch::IntegrationTest
     assert_redirected_to(%r{/api/auth\?shop=#{unknown_shop}})
   end
 
-  test "index does not redirect if shop is installed but there is no online session" do
-    User.delete_all
-
-    get "/?shop=#{KNOWN_SHOP}"
-
-    assert_response :success
-    assert_match "text/html", @response.headers["Content-Type"]
-  end
-
   test "index returns a 200 with HTML if a session exists" do
     get "/?shop=#{KNOWN_SHOP}"
 
