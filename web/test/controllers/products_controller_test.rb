@@ -33,7 +33,7 @@ class ProductsControllerTestTest < ActionDispatch::IntegrationTest
 
   test "handles creating products" do
     token = JWT.encode(JWT_PAYLOAD, ShopifyAPI::Context.api_secret_key, "HS256")
-    stub = stub_request(:post, "https://regular-shop.myshopify.com/admin/api/2022-04/graphql.json")
+    stub_request(:post, "https://regular-shop.myshopify.com/admin/api/2022-04/graphql.json")
       .with(headers: { "X-Shopify-Access-Token" => "access-token" })
       .to_return(status: 200, body: JSON.dump({}))
 
@@ -43,15 +43,15 @@ class ProductsControllerTestTest < ActionDispatch::IntegrationTest
         headers: { "HTTP_AUTHORIZATION": "Bearer #{token}" }
 
       assert_response :success
-      assert_equal({"success" => true, "error" => nil}, JSON.parse(@response.body))
+      assert_equal({ "success" => true, "error" => nil }, JSON.parse(@response.body))
     end
   end
 
   test "handles product creation errors" do
     token = JWT.encode(JWT_PAYLOAD, ShopifyAPI::Context.api_secret_key, "HS256")
-    stub = stub_request(:post, "https://regular-shop.myshopify.com/admin/api/2022-04/graphql.json")
+    stub_request(:post, "https://regular-shop.myshopify.com/admin/api/2022-04/graphql.json")
       .with(headers: { "X-Shopify-Access-Token" => "access-token" })
-      .to_return(status: 400, body: JSON.dump({errors: "Something went wrong"}))
+      .to_return(status: 400, body: JSON.dump({ errors: "Something went wrong" }))
 
     ShopifyAPI::Utils::SessionUtils.stub(:load_current_session, SESSION) do
       get "/api/products/create",
@@ -59,7 +59,7 @@ class ProductsControllerTestTest < ActionDispatch::IntegrationTest
         headers: { "HTTP_AUTHORIZATION": "Bearer #{token}" }
 
       assert_response :bad_request
-      assert_equal({"success" => false, "error" => "Something went wrong"}, JSON.parse(@response.body))
+      assert_equal({ "success" => false, "error" => "Something went wrong" }, JSON.parse(@response.body))
     end
   end
 

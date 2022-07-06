@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductCreator < ApplicationService
   attr_reader :count
 
@@ -12,6 +14,7 @@ class ProductCreator < ApplicationService
   QUERY
 
   def initialize(count:, session: ShopifyAPI::Context.active_session)
+    super()
     @count = count
     @session = session
   end
@@ -19,14 +22,14 @@ class ProductCreator < ApplicationService
   def call
     client = ShopifyAPI::Clients::Graphql::Admin.new(session: @session)
 
-    for i in 1..count
+    (1..count).each do |_i|
       client.query(
         query: CREATE_PRODUCTS_MUTATION,
         variables: {
           input: {
             title: random_title,
             variants: [{ price: random_price }],
-          }
+          },
         }
       )
     end

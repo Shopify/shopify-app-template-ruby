@@ -18,6 +18,6 @@ class ProductsController < AuthenticatedController
 
     logger.info("Failed to create products: #{error}")
   ensure
-    render(json: {success: success, error: error}, status: status_code)
+    render(json: { success: success, error: error }, status: status_code)
   end
 end
