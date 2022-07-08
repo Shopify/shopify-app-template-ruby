@@ -14,7 +14,6 @@ ShopifyApp.configure do |config|
   config.after_authenticate_job = false
   config.api_version = ShopifyAPI::AdminVersions::LATEST_SUPPORTED_ADMIN_VERSION
   config.shop_session_repository = "Shop"
-  config.user_session_repository = "User"
 
   config.reauth_on_access_scope_changes = true
 
