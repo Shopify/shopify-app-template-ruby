@@ -18,8 +18,6 @@ class AppUninstalledJob < ActiveJob::Base
     end
 
     logger.info("#{self.class} started for shop '#{shop_domain}'")
-    users = User.where(shopify_domain: shop_domain)
-    users.each(&:destroy)
     shop.destroy
   end
 end

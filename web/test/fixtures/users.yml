@@ -1,5 +1,0 @@
-regular_user:
-  shopify_domain: "regular-shop.myshopify.com"
-  shopify_token: "token"
-  shopify_user_id: 1
-  access_scopes: "write_products"
