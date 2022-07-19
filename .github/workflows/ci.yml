@@ -30,8 +30,5 @@ jobs:
           ruby-version: ${{ matrix.version }}
           bundler-cache: true
 
-      - name: Run tests
-        run: bin/rails test
-
       - name: Run RuboCop
         run: bundle exec rubocop --parallel -c ./rubocop.yml
