@@ -52,19 +52,19 @@ This template runs on Shopify CLI 3.0, which is a node package that can be inclu
 Using yarn:
 
 ```shell
-yarn create @shopify/app --template ruby
+yarn create @shopify/app --template=ruby
 ```
 
 Using npx:
 
 ```shell
-npm init @shopify/app@latest --template ruby
+npm init @shopify/app@latest --template=ruby
 ```
 
 Using pnpm:
 
 ```shell
-pnpm create @shopify/app@latest --template ruby
+pnpm create @shopify/app@latest --template=ruby
 ```
 
 This will clone the template and install the CLI in that project.
