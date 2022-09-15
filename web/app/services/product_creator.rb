@@ -30,7 +30,7 @@ class ProductCreator < ApplicationService
             title: random_title,
             variants: [{ price: random_price }],
           },
-        }
+        },
       )
     end
   end
