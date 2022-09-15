@@ -20,6 +20,7 @@ ShopifyApp.configure do |config|
   config.root_url = "/api"
   config.login_url = "/api/auth"
   config.login_callback_url = "/api/auth/callback"
+  config.embedded_redirect_url = "/ExitIframe"
 
   # You may want to charge merchants for using your app. Setting the billing configuration will cause the Authenticated
   # controller concern to check that the session is for a merchant that has an active one-time payment or subscription.
@@ -56,7 +57,7 @@ Rails.application.config.after_initialize do
       session_storage: ShopifyApp::SessionRepository,
       logger: Rails.logger,
       private_shop: ENV.fetch("SHOPIFY_APP_PRIVATE_SHOP", nil),
-      user_agent_prefix: "ShopifyApp/#{ShopifyApp::VERSION}"
+      user_agent_prefix: "ShopifyApp/#{ShopifyApp::VERSION}",
     )
 
     add_gdpr_webhooks
