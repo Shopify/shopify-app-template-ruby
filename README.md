@@ -170,13 +170,16 @@ rake build:all
 
 ## Hosting
 
-Before you host your app in a production environment, make sure to create the production app in your Partners Dashboard.
-You'll need to set up the API key and API secret for your production environment, as per the instructions below.
+When you're ready to set up your app in production, you can follow [our deployment documentation](https://shopify.dev/apps/deployment/web) to host your app on a cloud provider like [Heroku](https://www.heroku.com/) or [Fly.io](https://fly.io/).
 
-The following pages document the basic steps to host and deploy your application to a few popular cloud providers:
+When you reach the step for [setting up environment variables](https://shopify.dev/apps/deployment/web#set-env-vars), you also need to set the following variables:
 
-- [fly.io](/web/docs/fly-io.md)
-- [Heroku](/web/docs/heroku.md)
+| Variable                   | Secret? | Required |     Value      | Description                                                 |
+| -------------------------- | :-----: | :------: | :------------: | ----------------------------------------------------------- |
+| `RAILS_MASTER_KEY`         |   Yes   |   Yes    |     string     | Use value from `web/config/master.key` or create a new one. |
+| `RAILS_ENV`                |         |   Yes    | `"production"` |                                                             |
+| `RAILS_SERVE_STATIC_FILES` |         |   Yes    |      `1`       | Tells rails to serve the React app from the public folder.  |
+| `RAILS_LOG_TO_STDOUT`      |         |          |      `1`       | Tells rails to print out logs.                              |
 
 ## Known issues
 
