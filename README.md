@@ -30,7 +30,7 @@ This template combines a number of third party open source tools:
 These third party tools are complemented by Shopify specific tools to ease app development:
 
 - [Shopify API library](https://github.com/Shopify/shopify-api-ruby) adds OAuth to the Rails backend. This lets users install the app and grant scope permissions.
-- [App Bridge React](https://shopify.dev/tools/app-bridge/react-components) adds authentication to API requests in the frontend and renders components outside of the App’s iFrame.
+- [App Bridge](https://shopify.dev/apps/tools/app-bridge) and [App Bridge React](https://shopify.dev/apps/tools/app-bridge/getting-started/using-react) add authentication to API requests in the frontend and renders components outside of the App’s iFrame.
 - [Polaris React](https://polaris.shopify.com/) is a powerful design system and component library that helps developers build high quality, consistent experiences for Shopify merchants.
 - [Custom hooks](https://github.com/Shopify/shopify-frontend-template-react/tree/main/hooks) make authenticated requests to the Admin API.
 - [File-based routing](https://github.com/Shopify/shopify-frontend-template-react/blob/main/Routes.jsx) makes creating new pages easier.
@@ -170,13 +170,16 @@ rake build:all
 
 ## Hosting
 
-Before you host your app in a production environment, make sure to create the production app in your Partners Dashboard.
-You'll need to set up the API key and API secret for your production environment, as per the instructions below.
+When you're ready to set up your app in production, you can follow [our deployment documentation](https://shopify.dev/apps/deployment/web) to host your app on a cloud provider like [Heroku](https://www.heroku.com/) or [Fly.io](https://fly.io/).
 
-The following pages document the basic steps to host and deploy your application to a few popular cloud providers:
+When you reach the step for [setting up environment variables](https://shopify.dev/apps/deployment/web#set-env-vars), you also need to set the following variables:
 
-- [fly.io](/web/docs/fly-io.md)
-- [Heroku](/web/docs/heroku.md)
+| Variable                   | Secret? | Required |     Value      | Description                                                 |
+| -------------------------- | :-----: | :------: | :------------: | ----------------------------------------------------------- |
+| `RAILS_MASTER_KEY`         |   Yes   |   Yes    |     string     | Use value from `web/config/master.key` or create a new one. |
+| `RAILS_ENV`                |         |   Yes    | `"production"` |                                                             |
+| `RAILS_SERVE_STATIC_FILES` |         |   Yes    |      `1`       | Tells rails to serve the React app from the public folder.  |
+| `RAILS_LOG_TO_STDOUT`      |         |          |      `1`       | Tells rails to print out logs.                              |
 
 ## Known issues
 
