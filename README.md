@@ -252,6 +252,23 @@ npm run dev --tunnel-url https://tunnel-url:3000
 pnpm dev --tunnel-url https://tunnel-url:3000
 ```
 
+### I want to run the CLI inside a spin instance but my store domain is not valid
+When you run a `dev` command and open the app url in the browser and you are prompted to `Enter your shop domain to log in or install this app.`. This means that the shop domain used is not valid. Despite entering the correct shop domain in the form you will always received an `Invalid shop domain` error message.
+
+To fix the problem you should modify the file `web/config/initializers/shopify_app.rb` to set the proper value to the config variable `config.myshopify_domain` like this:
+```ruby
+  config.api_key = ENV.fetch("SHOPIFY_API_KEY", "").presence
+  config.secret = ENV.fetch("SHOPIFY_API_SECRET", "").presence
+  config.myshopify_domain = ENV.fetch("SHOP_CUSTOM_DOMAIN", "").presence unless ENV.fetch("SHOP_CUSTOM_DOMAIN", "").empty?
+```
+
+In case the CLI version used does not support the environment varibale `SHOP_CUSTOM_DOMAIN` you should add you complete spin domain. If the url of one of your stores is https://spin-store.shopify.constellation-t90f.my-spin-instance.eu.spin.dev/ the content of the context should be:
+```ruby
+  config.api_key = ENV.fetch("SHOPIFY_API_KEY", "").presence
+  config.secret = ENV.fetch("SHOPIFY_API_SECRET", "").presence
+  config.myshopify_domain = "shopify.constellation-t90f.my-spin-instance.eu.spin.dev"
+```
+
 ## Developer resources
 
 - [Introduction to Shopify apps](https://shopify.dev/apps/getting-started)
