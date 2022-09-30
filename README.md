@@ -259,7 +259,7 @@ To fix the problem you should modify the file `web/config/initializers/shopify_a
 ```ruby
   config.api_key = ENV.fetch("SHOPIFY_API_KEY", "").presence
   config.secret = ENV.fetch("SHOPIFY_API_SECRET", "").presence
-  config.myshopify_domain = ENV.fetch("SHOP_CUSTOM_DOMAIN", "").presence unless ENV.fetch("SHOP_CUSTOM_DOMAIN", "").empty?
+  config.myshopify_domain = ENV.fetch("SHOP_CUSTOM_DOMAIN", "").presence
 ```
 
 In case the CLI version used does not support the environment varibale `SHOP_CUSTOM_DOMAIN` you should add you complete spin domain. If the url of one of your stores is https://spin-store.shopify.constellation-t90f.my-spin-instance.eu.spin.dev/ the content of the context should be:
