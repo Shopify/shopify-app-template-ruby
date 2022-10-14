@@ -6,10 +6,13 @@ namespace :build do
 
   desc "Build symlinks for FE assets"
   task build_frontend_links: :environment do
-    index_path = File.join(__dir__, "../../public/dist/index.html")
-    assets_path = File.join(__dir__, "../../public/assets")
+    dist_dir = File.expand_path("../../public/dist", __dir__)
+    Dir.mkdir(dist_dir) unless File.exists?(dist_dir) 
+  
+    index_path = File.expand_path("../../public/dist/index.html", __dir__)
+    assets_path = File.expand_path("../../public/assets", __dir__)
 
-    File.symlink(File.join(__dir__, "../../frontend/dist/index.html"), index_path) unless File.symlink?(index_path)
-    File.symlink(File.join(__dir__, "../../frontend/dist/assets"), assets_path) unless File.symlink?(assets_path)
+    File.symlink(File.expand_path("../../frontend/dist/index.html", __dir__), index_path) unless File.symlink?(index_path)
+    File.symlink(File.expand_path("../../frontend/dist/assets", __dir__), assets_path) unless File.symlink?(assets_path)
   end
 end
