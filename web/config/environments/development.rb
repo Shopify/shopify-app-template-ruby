@@ -8,6 +8,11 @@ Rails.application.configure do
   rescue
     []
   end << /[-\w.]+\.ngrok\.io/
+
+  if ENV.fetch("SHOP_CUSTOM_DOMAIN", "").present?
+    custom_host = Regexp.new '[\\w\.]+' +  ENV.fetch("SHOP_CUSTOM_DOMAIN").sub("shopify","").gsub("\.","\\.")
+    config.hosts << custom_host
+  end
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
