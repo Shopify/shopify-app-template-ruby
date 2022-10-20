@@ -10,7 +10,7 @@ Rails.application.configure do
   end << /[-\w.]+\.ngrok\.io/
 
   if ENV.fetch("SHOP_CUSTOM_DOMAIN", "").present?
-    custom_host = Regexp.new '[\\w\.]+' +  ENV.fetch("SHOP_CUSTOM_DOMAIN").sub("shopify","").gsub("\.","\\.")
+    custom_host = Regexp.new('[\\w\.]+' + ENV.fetch("SHOP_CUSTOM_DOMAIN").sub("shopify", "").gsub("\.", "\\."))
     config.hosts << custom_host
   end
   # Settings specified here will take precedence over those in config/application.rb.
