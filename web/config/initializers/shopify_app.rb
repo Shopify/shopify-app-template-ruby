@@ -37,7 +37,7 @@ ShopifyApp.configure do |config|
 
   config.api_key = ENV.fetch("SHOPIFY_API_KEY", "").presence
   config.secret = ENV.fetch("SHOPIFY_API_SECRET", "").presence
-  config.myshopify_domain = ENV.fetch("SHOP_CUSTOM_DOMAIN", "").presence
+  config.myshopify_domain = ENV.fetch("SHOP_CUSTOM_DOMAIN", "").presence if ENV.fetch("SHOP_CUSTOM_DOMAIN", "").present?
 
   if defined? Rails::Server
     raise("Missing SHOPIFY_API_KEY. See https://github.com/Shopify/shopify_app#requirements") unless config.api_key
