@@ -8,6 +8,8 @@ Rails.application.configure do
   rescue
     []
   end << /[-\w.]+\.ngrok\.io/
+
+  config.hosts << URI(ENV.fetch("HOST", "")).host if ENV.fetch("HOST", "").present?
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
