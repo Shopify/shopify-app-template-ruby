@@ -24,6 +24,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Find any lock file
+        run: if test -f ../yarn.lock || test -f ../pnpm-lock.yaml || test -f ../package-lock.json; then echo "Please don't commit lock files" && exit 1; fi
+
       - name: Set up Ruby ${{ matrix.version }}
         uses: ruby/setup-ruby@v1
         with:
