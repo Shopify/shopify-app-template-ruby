@@ -38,10 +38,7 @@ class ProductCreator < ApplicationService
   private
 
   def random_title
-    adjective = ADJECTIVES[rand(ADJECTIVES.size)]
-    noun = NOUNS[rand(NOUNS.size)]
-
-    "#{adjective} #{noun}"
+    "#{ADJECTIVES.sample} #{NOUNS.sample}"
   end
 
   def random_price
