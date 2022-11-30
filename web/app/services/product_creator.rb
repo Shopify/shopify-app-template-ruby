@@ -42,7 +42,7 @@ class ProductCreator < ApplicationService
   end
 
   def random_price
-    (100.0 + rand(1000)) / 100
+    rand(100..1000) / 100.0
   end
 
   ADJECTIVES = [
