@@ -2,7 +2,7 @@
 
 class HomeController < ApplicationController
   include ShopifyApp::EmbeddedApp
-  include ShopifyApp::RequireKnownShop
+  include ShopifyApp::EnsureInstalled
   include ShopifyApp::ShopAccessScopesVerification
 
   DEV_INDEX_PATH = Rails.root.join("frontend")
