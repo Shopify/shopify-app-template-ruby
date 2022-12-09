@@ -55,8 +55,8 @@ Rails.application.config.after_initialize do
       scope: ShopifyApp.configuration.scope,
       is_private: !ENV.fetch("SHOPIFY_APP_PRIVATE_SHOP", "").empty?,
       is_embedded: ShopifyApp.configuration.embedded_app,
+      session_storage: ShopifyApp::SessionRepository,
       logger: Rails.logger,
-      log_level: :info,
       private_shop: ENV.fetch("SHOPIFY_APP_PRIVATE_SHOP", nil),
       user_agent_prefix: "ShopifyApp/#{ShopifyApp::VERSION}",
     )
