@@ -75,4 +75,4 @@ group :test do
   gem "webdrivers"
 end
 
-gem "shopify_app", git: "https://github.com/Shopify/shopify_app", branch: '12.3.0'
+gem "shopify_app", git: "https://github.com/Shopify/shopify_app", branch: 'klenotiw/remove-unused-js-and-template-files'
