@@ -245,11 +245,11 @@ In a different terminal window, navigate to your app's root and call:
 
 ```shell
 # Using yarn
-yarn dev --tunnel-url https://tunnel-url:3000
+yarn dev --tunnel-url=https://tunnel-url:3000
 # or using npm
-npm run dev --tunnel-url https://tunnel-url:3000
+npm run dev --tunnel-url=https://tunnel-url:3000
 # or using pnpm
-pnpm dev --tunnel-url https://tunnel-url:3000
+pnpm dev --tunnel-url=https://tunnel-url:3000
 ```
 
 ## Developer resources
