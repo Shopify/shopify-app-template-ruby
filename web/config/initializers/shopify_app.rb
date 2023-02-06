@@ -4,7 +4,7 @@ ShopifyApp.configure do |config|
   config.webhooks = [
     # After a store owner uninstalls your app, Shopify invokes the APP_UNINSTALLED webhook
     # to let your app know.
-    { topic: "app/uninstalled", address: "api/webhooks/app_uninstalled" },
+    { topic: "app/uninstalled", path: "api/webhooks/app_uninstalled" },
   ]
   config.application_name = "My Shopify App"
   config.old_secret = ""
@@ -74,17 +74,17 @@ def add_gdpr_webhooks
     #
     # 48 hours after a store owner uninstalls your app, Shopify invokes this SHOP_REDACT webhook.
     # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#shop-redact
-    { topic: "shop/redact", address: "api/webhooks/shop_redact" },
+    { topic: "shop/redact", path: "api/webhooks/shop_redact" },
 
     # Store owners can request that data is deleted on behalf of a customer. When this happens,
     # Shopify invokes this CUSTOMERS_REDACT webhook to let your app know.
     # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#customers-redact
-    { topic: "customers/redact", address: "api/webhooks/customers_redact" },
+    { topic: "customers/redact", path: "api/webhooks/customers_redact" },
 
     # Customers can request their data from a store owner. When this happens, Shopify invokes
     # this CUSTOMERS_DATA_REQUEST webhook to let your app know.
     # https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks#customers-data_request
-    { topic: "customers/data_request", address: "api/webhooks/customers_data_request" },
+    { topic: "customers/data_request", path: "api/webhooks/customers_data_request" },
   ]
 
   ShopifyApp.configuration.webhooks = if ShopifyApp.configuration.has_webhooks?
