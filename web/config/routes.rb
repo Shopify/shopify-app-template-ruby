@@ -6,8 +6,11 @@ Rails.application.routes.draw do
   mount ShopifyApp::Engine, at: "/api"
   get "/api", to: redirect(path: "/") # Needed because our engine root is /api but that breaks FE routing
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # If you are adding routes outside of the /api path, remember to also add a proxy rule for
+  # it in web/frontend/vite.config.js
 
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  
   get "/api/products/count", to: "products#count"
   get "/api/products/create", to: "products#create"
 
