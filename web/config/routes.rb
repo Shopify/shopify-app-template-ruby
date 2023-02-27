@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "/api", to: redirect(path: "/") # Needed because our engine root is /api but that breaks FE routing
 
   # If you are adding routes outside of the /api path, remember to also add a proxy rule for
-  # it in web/frontend/vite.config.js
+  # them in web/frontend/vite.config.js
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   
