@@ -4,10 +4,10 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     env:
-      SHOPIFY_API_KEY: test-api-key
-      SHOPIFY_API_SECRET: test-secret-key
-      SCOPES: write_products
-      HOST: app-host-name.io
+      SHOPIFY_APP_API_KEY: test-api-key
+      SHOPIFY_APP_API_SECRET: test-secret-key
+      SHOPIFY_APP_SCOPES: write_products
+      SHOPIFY_APP_URL: https://app-host-name.io
       BUNDLE_GEMFILE: ${{ github.workspace }}/web/Gemfile
     strategy:
       fail-fast: false

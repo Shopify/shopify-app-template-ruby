@@ -8,7 +8,7 @@ ShopifyApp.configure do |config|
   ]
   config.application_name = "My Shopify App"
   config.old_secret = ""
-  config.scope = ENV.fetch("SCOPES", "write_products") # See shopify.app.toml for scopes
+  config.scope = ENV.fetch("SHOPIFY_APP_SCOPES", ENV.fetch("SCOPES", "write_products")) # See shopify.app.toml for scopes
   # Consult this page for more scope options: https://shopify.dev/api/usage/access-scopes
   config.embedded_app = true
   config.after_authenticate_job = false
@@ -35,13 +35,13 @@ ShopifyApp.configure do |config|
   #   currency_code: "USD", # Only supports USD for now
   # )
 
-  config.api_key = ENV.fetch("SHOPIFY_API_KEY", "").presence
-  config.secret = ENV.fetch("SHOPIFY_API_SECRET", "").presence
+  config.api_key = ENV.fetch("SHOPIFY_APP_API_KEY", ENV.fetch("SHOPIFY_API_KEY", "")).presence
+  config.secret = ENV.fetch("SHOPIFY_APP_API_SECRET", ENV.fetch("SHOPIFY_API_SECRET", "")).presence
   config.myshopify_domain = ENV.fetch("SHOP_CUSTOM_DOMAIN", "").presence if ENV.fetch("SHOP_CUSTOM_DOMAIN", "").present?
 
   if defined? Rails::Server
-    raise("Missing SHOPIFY_API_KEY. See https://github.com/Shopify/shopify_app#requirements") unless config.api_key
-    raise("Missing SHOPIFY_API_SECRET. See https://github.com/Shopify/shopify_app#requirements") unless config.secret
+    raise("Missing SHOPIFY_APP_API_KEY. See https://github.com/Shopify/shopify_app#requirements") unless config.api_key
+    raise("Missing SHOPIFY_APP_API_SECRET. See https://github.com/Shopify/shopify_app#requirements") unless config.secret
   end
 end
 
@@ -51,7 +51,7 @@ Rails.application.config.after_initialize do
       api_key: ShopifyApp.configuration.api_key,
       api_secret_key: ShopifyApp.configuration.secret,
       api_version: ShopifyApp.configuration.api_version,
-      host_name: URI(ENV.fetch("HOST", "")).host || "",
+      host_name: URI(ENV.fetch("SHOPIFY_APP_URL", ENV.fetch("HOST", ""))).host || "",
       scope: ShopifyApp.configuration.scope,
       is_private: !ENV.fetch("SHOPIFY_APP_PRIVATE_SHOP", "").empty?,
       is_embedded: ShopifyApp.configuration.embedded_app,

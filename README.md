@@ -137,8 +137,13 @@ Once you decide which database to use, you can configure your app to connect to 
 ### Build
 
 The frontend is a single page React app.
-It requires the `SHOPIFY_API_KEY` environment variable, which you can get by running `yarn run info --web-env`.
+It requires the `SHOPIFY_APP_API_KEY` environment variable, which you can get by running `yarn run info --web-env`.
 The CLI will set up the necessary environment variables for the build if you run its `build` command from your app's root:
+
+<!-- TODO Update CLI version here -->
+> **Note**: For apps created using Shopify CLI vX.Y.Z or earlier, some of the environment variables above use different names.
+>
+> For more information, refer to [Shopify CLI app structure](https://shopify.dev/docs/apps/tools/cli/structure#web-component-conventions).
 
 Using yarn in your app's root folder:
 
@@ -163,7 +168,7 @@ If you're manually building (for instance when deploying the `web` folder to pro
 
 ```shell
 cd web/frontend
-SHOPIFY_API_KEY=REPLACE_ME yarn build
+SHOPIFY_APP_API_KEY=REPLACE_ME yarn build
 cd ..
 rake build:all
 ```
@@ -193,8 +198,8 @@ We fixed this issue with v3.4.0 of the CLI, so after updating it, you can make t
 1. Change the definition `hmrConfig` object to be:
 
    ```js
-   const host = process.env.HOST
-     ? process.env.HOST.replace(/https?:\/\//, "")
+   const host = process.env.SHOPIFY_APP_URL
+     ? process.env.SHOPIFY_APP_URL.replace(/https?:\/\//, "")
      : "localhost";
 
    let hmrConfig;
