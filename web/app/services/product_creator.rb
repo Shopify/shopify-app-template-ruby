@@ -3,7 +3,7 @@
 class ProductCreator < ApplicationService
   attr_reader :count
 
-  CREATE_PRODUCTS_MUTATION = <<~'QUERY'
+  CREATE_PRODUCTS_MUTATION = <<~QUERY
     mutation populateProduct($input: ProductInput!) {
       productCreate(input: $input) {
         product {
