@@ -1,0 +1,3 @@
+{
+  "i18n-ally.localesPaths": ["web/config/locales", "web/frontend/locales"]
+}
