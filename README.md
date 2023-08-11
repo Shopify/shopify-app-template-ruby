@@ -259,12 +259,36 @@ npm run dev --tunnel-url https://tunnel-url:3000
 pnpm dev --tunnel-url https://tunnel-url:3000
 ```
 
+### I'm seeing "App couldn't be loaded"  error due to browser cookies
+- Ensure you're using the latest [shopify_app](https://github.com/Shopify/shopify_app/blob/main/README.md) gem that uses Session Tokens instead of cookies.
+    - See ["My app is still using cookies to authenticate"](https://github.com/Shopify/shopify_app/blob/main/docs/Troubleshooting.md#my-app-is-still-using-cookies-to-authenticate)
+- Ensure `shopify.app.toml` is present and contains up to date information for the app's redirect URLS. To reset/update this config, run
+
+Using yarn:
+
+```shell
+yarn dev --reset
+```
+
+Using npm:
+
+```shell
+npm run dev -- --reset
+```
+
+Using pnpm:
+
+```shell
+pnpm run dev --reset
+```
+
 ## Developer resources
 
 - [Introduction to Shopify apps](https://shopify.dev/docs/apps/getting-started)
 - [App authentication](https://shopify.dev/docs/apps/auth)
 - [Shopify CLI](https://shopify.dev/docs/apps/tools/cli)
 - [Shopify API Library documentation](https://github.com/Shopify/shopify-api-ruby/tree/main/docs)
+- [Shopify App Gem](https://github.com/Shopify/shopify_app/blob/main/README.md)
 - [Getting started with internationalizing your app](https://shopify.dev/docs/apps/best-practices/internationalization/getting-started)
   - [i18next](https://www.i18next.com/)
     - [Configuration options](https://www.i18next.com/overview/configuration-options)
