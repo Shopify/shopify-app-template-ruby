@@ -35,6 +35,7 @@ This template combines a number of third party open source tools:
 
 These third party tools are complemented by Shopify specific tools to ease app development:
 
+- [Shopify App Rails Engine](https://github.com/Shopify/shopify_app) helps to install your application on shops and provide tools for [authentication](https://github.com/Shopify/shopify_app/blob/main/docs/shopify_app/authentication.md).
 - [Shopify API library](https://github.com/Shopify/shopify-api-ruby) adds OAuth to the Rails backend. This lets users install the app and grant scope permissions.
 - [App Bridge](https://shopify.dev/docs/apps/tools/app-bridge) and [App Bridge React](https://shopify.dev/docs/apps/tools/app-bridge/getting-started/using-react) add authentication to API requests in the frontend and renders components outside of the App’s iFrame.
 - [Polaris React](https://polaris.shopify.com/) is a powerful design system and component library that helps developers build high quality, consistent experiences for Shopify merchants.
@@ -174,6 +175,19 @@ SHOPIFY_API_KEY=REPLACE_ME yarn build
 cd ..
 rake build:all
 ```
+
+### Making your first API call
+You can use the [ShopifyAPI](https://github.com/Shopify/shopify-api-ruby) gem to start make authenticated Shopify API calls.
+
+* [Make a GraphQL Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql.md)
+* [Make a GraphQL Storefront API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql_storefront.md)
+* [Make a Rest Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/rest.md)
+
+Examples from this app template: 
+* Making Admin **GraphQL** API to create products:
+    * `ProductCreator#create` (web/app/services/product_creator.rb) (used by `ProductsController#create`)
+* Making Admin **Rest** API calls to count products:
+    * `ProductsController#count` (web/app/controllers/products_controller.rb)
 
 ## Hosting
 
