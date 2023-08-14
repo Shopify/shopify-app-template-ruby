@@ -14,7 +14,7 @@ class ProductCreator < ApplicationService
     }
   QUERY
 
-  def initialize(count:, session: ShopifyAPI::Context.active_session)
+  def initialize(count:, session:)
     super()
     @count = count
     @session = session

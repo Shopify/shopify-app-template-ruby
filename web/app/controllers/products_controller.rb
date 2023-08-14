@@ -8,7 +8,7 @@ class ProductsController < AuthenticatedController
   end
 
   def create
-    ProductCreator.call(count: 5)
+    ProductCreator.call(count: 5, session: current_shopify_session)
 
     success = true
     error = nil
