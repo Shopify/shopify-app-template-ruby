@@ -7,13 +7,14 @@ class ProductCreator < ApplicationService
     mutation populateProduct($input: ProductInput!) {
       productCreate(input: $input) {
         product {
+          title
           id
         }
       }
     }
   QUERY
 
-  def initialize(count:, session: ShopifyAPI::Context.active_session)
+  def initialize(count:, session:)
     super()
     @count = count
     @session = session
@@ -23,7 +24,7 @@ class ProductCreator < ApplicationService
     client = ShopifyAPI::Clients::Graphql::Admin.new(session: @session)
 
     (1..count).each do |_i|
-      client.query(
+      response = client.query(
         query: CREATE_PRODUCTS_MUTATION,
         variables: {
           input: {
@@ -32,6 +33,9 @@ class ProductCreator < ApplicationService
           },
         },
       )
+
+      created_product = response.body["data"]["productCreate"]["product"]
+      ShopifyAPI::Logger.info("Created Product | Title: '#{created_product["title"]}' | Id: '#{created_product["id"]}'")
     end
   end
 

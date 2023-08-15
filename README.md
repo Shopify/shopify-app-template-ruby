@@ -20,6 +20,18 @@ The Ruby app template comes with the following out-of-the-box functionality:
 
 ## Tech Stack
 
+These third party tools are complemented by Shopify specific tools to ease app development:
+
+| Tool | Usage |
+|---------|---------|
+| [Shopify App](https://github.com/Shopify/shopify_app) | Rails engine to help build Shopify app using Rails conventions. Helps to install your application on shops, and provides tools for: <li>OAuth</li><li>Session Storage</li><li>Webhook Processing</li><li>etc.</li> |
+| [ShopifyAPI Gem](https://github.com/Shopify/shopify-api-ruby) | A lightweight gem to provide tools for: <br/><li>Obtaining an active session. (`ShopifyApp` uses this behind the scenes to handle OAuth)</li><li>Clients to make request to Shopify GraphQL and Rest APIs. See how it's used [here](#making-your-first-api-call)</li><li>Error handling</li><li>Application Logger</li><li>Webhook Management</li> |
+| [App Bridge](https://shopify.dev/docs/apps/tools/app-bridge), </br>[App Bridge React](https://shopify.dev/docs/apps/tools/app-bridge/getting-started/using-react)| Frontend library that: <li>Add authentication to API requests in the frontend</li><li>Renders components outside of the App’s iFrame in Shopify's Admin page</li> |
+| [Custom React hooks](https://github.com/Shopify/shopify-frontend-template-react/tree/main/hooks) | Custom React hooks that uses App Bridge to make authenticated requests to the Admin API. |
+| [Polaris React](https://polaris.shopify.com/) | A powerful design system and react component library that helps developers build high quality, consistent experiences for Shopify merchants. |
+| [File-based routing](https://github.com/Shopify/shopify-frontend-template-react/blob/main/Routes.jsx) | Tool makes creating new pages easier. |
+| [`@shopify/i18next-shopify`](https://github.com/Shopify/i18next-shopify) | A plugin for [`i18next`](https://www.i18next.com/) that allows translation files to follow the same JSON schema used by Shopify [app extensions](https://shopify.dev/docs/apps/checkout/best-practices/localizing-ui-extensions#how-it-works) and [themes](https://shopify.dev/docs/themes/architecture/locales/storefront-locale-files#usage). |
+
 This template combines a number of third party open source tools:
 
 - [Rails](https://rubyonrails.org/) builds the backend.
@@ -32,15 +44,6 @@ This template combines a number of third party open source tools:
   - [`@formatjs/intl-localematcher`](https://formatjs.io/docs/polyfills/intl-localematcher/) is used to match the user locale with supported app locales.
   - [`@formatjs/intl-locale`](https://formatjs.io/docs/polyfills/intl-locale) is used as a polyfill for [`Intl.Locale`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale) if necessary.
   - [`@formatjs/intl-pluralrules`](https://formatjs.io/docs/polyfills/intl-pluralrules) is used as a polyfill for [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) if necessary.
-
-These third party tools are complemented by Shopify specific tools to ease app development:
-
-- [Shopify API library](https://github.com/Shopify/shopify-api-ruby) adds OAuth to the Rails backend. This lets users install the app and grant scope permissions.
-- [App Bridge](https://shopify.dev/docs/apps/tools/app-bridge) and [App Bridge React](https://shopify.dev/docs/apps/tools/app-bridge/getting-started/using-react) add authentication to API requests in the frontend and renders components outside of the App’s iFrame.
-- [Polaris React](https://polaris.shopify.com/) is a powerful design system and component library that helps developers build high quality, consistent experiences for Shopify merchants.
-- [Custom hooks](https://github.com/Shopify/shopify-frontend-template-react/tree/main/hooks) make authenticated requests to the Admin API.
-- [File-based routing](https://github.com/Shopify/shopify-frontend-template-react/blob/main/Routes.jsx) makes creating new pages easier.
-- [`@shopify/i18next-shopify`](https://github.com/Shopify/i18next-shopify) is a plugin for [`i18next`](https://www.i18next.com/) that allows translation files to follow the same JSON schema used by Shopify [app extensions](https://shopify.dev/docs/apps/checkout/best-practices/localizing-ui-extensions#how-it-works) and [themes](https://shopify.dev/docs/themes/architecture/locales/storefront-locale-files#usage).
 
 ## Getting started
 
@@ -175,6 +178,19 @@ cd ..
 rake build:all
 ```
 
+### Making your first API call
+You can use the [ShopifyAPI](https://github.com/Shopify/shopify-api-ruby) gem to start make authenticated Shopify API calls.
+
+* [Make a GraphQL Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql.md)
+* [Make a GraphQL Storefront API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql_storefront.md)
+* [Make a Rest Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/rest.md)
+
+Examples from this app template: 
+* Making Admin **GraphQL** API request to create products:
+    * `ProductCreator#create` (web/app/services/product_creator.rb)
+* Making Admin **Rest** API request to count products:
+    * `ProductsController#count` (web/app/controllers/products_controller.rb)
+
 ## Hosting
 
 When you're ready to set up your app in production, you can follow [our deployment documentation](https://shopify.dev/docs/apps/deployment/web) to host your app on a cloud provider like [Heroku](https://www.heroku.com/) or [Fly.io](https://fly.io/).
@@ -259,12 +275,36 @@ npm run dev --tunnel-url https://tunnel-url:3000
 pnpm dev --tunnel-url https://tunnel-url:3000
 ```
 
+### I'm seeing "App couldn't be loaded"  error due to browser cookies
+- Ensure you're using the latest [shopify_app](https://github.com/Shopify/shopify_app/blob/main/README.md) gem that uses Session Tokens instead of cookies.
+    - See ["My app is still using cookies to authenticate"](https://github.com/Shopify/shopify_app/blob/main/docs/Troubleshooting.md#my-app-is-still-using-cookies-to-authenticate)
+- Ensure `shopify.app.toml` is present and contains up to date information for the app's redirect URLS. To reset/update this config, run
+
+Using yarn:
+
+```shell
+yarn dev --reset
+```
+
+Using npm:
+
+```shell
+npm run dev -- --reset
+```
+
+Using pnpm:
+
+```shell
+pnpm run dev --reset
+```
+
 ## Developer resources
 
 - [Introduction to Shopify apps](https://shopify.dev/docs/apps/getting-started)
 - [App authentication](https://shopify.dev/docs/apps/auth)
 - [Shopify CLI](https://shopify.dev/docs/apps/tools/cli)
 - [Shopify API Library documentation](https://github.com/Shopify/shopify-api-ruby/tree/main/docs)
+- [Shopify App Gem](https://github.com/Shopify/shopify_app/blob/main/README.md)
 - [Getting started with internationalizing your app](https://shopify.dev/docs/apps/best-practices/internationalization/getting-started)
   - [i18next](https://www.i18next.com/)
     - [Configuration options](https://www.i18next.com/overview/configuration-options)

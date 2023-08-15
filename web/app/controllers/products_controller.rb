@@ -2,11 +2,13 @@
 
 class ProductsController < AuthenticatedController
   def count
-    render(json: ShopifyAPI::Product.count.body)
+    product_count = ShopifyAPI::Product.count.body
+    ShopifyAPI::Logger.info("Retrieved product count: #{product_count["count"]}")
+    render(json: product_count)
   end
 
   def create
-    ProductCreator.call(count: 5)
+    ProductCreator.call(count: 5, session: current_shopify_session)
 
     success = true
     error = nil
