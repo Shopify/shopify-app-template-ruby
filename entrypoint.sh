@@ -3,9 +3,11 @@
 set -e
 
 # Remove a potentially pre-existing server.pid for Rails.
-rm -f /app/tmp/pids/server.pid
+if [ -f /app/tmp/pids/server.pid ]; then
+  rm -f /app/tmp/pids/server.pid
+fi
 
 bin/rails db:create
 bin/rails db:migrate
 
-rails server -b 0.0.0.0 -e production
+exec "$@"
