@@ -159,7 +159,7 @@ yarn build --api-key=REPLACE_ME
 Using npm:
 
 ```shell
-npm run build --api-key=REPLACE_ME
+npm run build -- --api-key=REPLACE_ME
 ```
 
 Using pnpm:
