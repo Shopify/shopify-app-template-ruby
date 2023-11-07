@@ -69,7 +69,7 @@ end
 def add_privacy_webhooks
   privacy_webhooks = [
     # NOTE: To register the URLs for the three privacy topics that follow, please set the appropriate
-    # webhook endpoint in the 'Mandatory privacy webhooks' section of 'App setup' in the Partners Dashboard.
+    # webhook endpoint in the 'Privacy webhooks' section of 'App setup' in the Partners Dashboard.
     # The code that processes these webhooks is located in the `app/jobs` directory.
     #
     # 48 hours after a store owner uninstalls your app, Shopify invokes this SHOP_REDACT webhook.
