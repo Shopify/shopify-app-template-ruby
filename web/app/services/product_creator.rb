@@ -28,7 +28,7 @@ class ProductCreator < ApplicationService
         query: CREATE_PRODUCTS_MUTATION,
         variables: {
           input: {
-            title: random_title
+            title: random_title,
           },
         },
       )
