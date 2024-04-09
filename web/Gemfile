@@ -75,4 +75,4 @@ group :test do
   gem "webdrivers"
 end
 
-gem "shopify_app", "~> 21.9"
+gem "shopify_app", "~> 22.0"
