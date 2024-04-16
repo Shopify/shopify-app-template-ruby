@@ -16,6 +16,8 @@ ShopifyApp.configure do |config|
   config.shop_session_repository = "Shop"
 
   config.reauth_on_access_scope_changes = true
+  config.wip_new_embedded_auth_strategy = true
+  config.check_session_expiry_date = true
 
   config.root_url = "/api"
   config.login_url = "/api/auth"
