@@ -11,8 +11,14 @@ Rails.application.routes.draw do
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  get "/api/products/count", to: "products#count"
-  get "/api/products/create", to: "products#create"
+  scope path: :api, format: :json do
+    # POST /api/products and GET /api/products/count
+    resources :products, only: :create do
+      collection do
+        get :count
+      end
+    end
+  end
 
   # Any other routes will just render the react app
   match "*path" => "home#index", via: [:get, :post]
