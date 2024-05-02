@@ -30,6 +30,8 @@ class ProductCreator < ApplicationService
         client.query(query: CREATE_PRODUCTS_MUTATION, variables: { title: random_title })
       end
 
+      raise StandardError, response.body["errors"].to_s if response.body["errors"]
+
       created_product = response.body.dig("data", "productCreate", "product")
       Rails.logger.info("Created Product | Title: '#{created_product["title"]}' | Id: '#{created_product["id"]}'")
     end
