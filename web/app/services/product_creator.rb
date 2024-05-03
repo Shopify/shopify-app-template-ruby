@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class ProductCreator < ApplicationService
+  include ShopifyApp::AdminAPI::WithTokenRefetch
+
   attr_reader :count
 
   CREATE_PRODUCTS_MUTATION = <<~QUERY
-    mutation populateProduct($input: ProductInput!) {
-      productCreate(input: $input) {
+    mutation populateProduct($title: String!) {
+      productCreate(input: {title: $title}) {
         product {
           title
           id
@@ -14,41 +16,31 @@ class ProductCreator < ApplicationService
     }
   QUERY
 
-  def initialize(count:, session:)
-    super()
+  def initialize(count:, session:, id_token:)
+    super
     @count = count
     @session = session
+    @id_token = id_token
   end
 
   def call
-    client = ShopifyAPI::Clients::Graphql::Admin.new(session: @session)
+    count.times do
+      response = with_token_refetch(@session, @id_token) do
+        client = ShopifyAPI::Clients::Graphql::Admin.new(session: @session)
+        client.query(query: CREATE_PRODUCTS_MUTATION, variables: { title: random_title })
+      end
 
-    (1..count).each do |_i|
-      response = client.query(
-        query: CREATE_PRODUCTS_MUTATION,
-        variables: {
-          input: {
-            title: random_title,
-          },
-        },
-      )
+      raise StandardError, response.body["errors"].to_s if response.body["errors"]
 
-      created_product = response.body["data"]["productCreate"]["product"]
-      ShopifyAPI::Logger.info("Created Product | Title: '#{created_product["title"]}' | Id: '#{created_product["id"]}'")
+      created_product = response.body.dig("data", "productCreate", "product")
+      Rails.logger.info("Created Product | Title: '#{created_product["title"]}' | Id: '#{created_product["id"]}'")
     end
   end
 
   private
 
   def random_title
-    adjective = ADJECTIVES[rand(ADJECTIVES.size)]
-    noun = NOUNS[rand(NOUNS.size)]
-
-    "#{adjective} #{noun}"
-  end
-
-  def random_price
-    (100.0 + rand(1000)) / 100
+    "#{ADJECTIVES.sample} #{NOUNS.sample}"
   end
 
   ADJECTIVES = [

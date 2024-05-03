@@ -10,18 +10,10 @@ class ProductsController < AuthenticatedController
 
   # POST /api/products
   def create
-    ProductCreator.call(count: 5, session: current_shopify_session)
-
-    success = true
-    error = nil
-    status_code = 200
+    ProductCreator.call(count: 5, session: current_shopify_session, id_token: shopify_id_token)
+    render(json: { success: true, error: nil })
   rescue => e
-    success = false
-    error = e.message
-    status_code = e.is_a?(ShopifyAPI::Errors::HttpResponseError) ? e.code : 500
-
-    logger.info("Failed to create products: #{error}")
-  ensure
-    render(json: { success: success, error: error }, status: status_code)
+    logger.error("Failed to create products: #{e.message}")
+    render(json: { success: false, error: e.message }, status: e.try(:code) || :internal_server_error)
   end
 end

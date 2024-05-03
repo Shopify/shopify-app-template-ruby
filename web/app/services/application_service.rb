@@ -6,4 +6,6 @@ class ApplicationService
       new(*args, **kwargs, &block).call
     end
   end
+
+  def initialize(*args, **kwargs, &block); end
 end
