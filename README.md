@@ -60,7 +60,7 @@ This template combines a number of third party open source tools:
 This template runs on [Shopify CLI 3.0](https://shopify.dev/docs/apps/build/cli-for-apps). You can start a new project with this template by running this command:
 
 ```shell
-shopify init --template=https://github.com/Shopify/shopify-app-template-ruby
+shopify app init --template=https://github.com/Shopify/shopify-app-template-ruby
 ```
 
 ### Setting up your Rails app
