@@ -57,27 +57,11 @@ This template combines a number of third party open source tools:
 
 ### Installing the template
 
-This template runs on Shopify CLI 3.0, which is a node package that can be included in projects. You can install it using your preferred Node.js package manager:
-
-Using yarn:
+This template runs on [Shopify CLI 3.0](https://shopify.dev/docs/apps/build/cli-for-apps). You can start a new project with this template by running this command:
 
 ```shell
-yarn create @shopify/app --template=ruby
+shopify app init --template=https://github.com/Shopify/shopify-app-template-ruby
 ```
-
-Using npx:
-
-```shell
-npm init @shopify/app@latest -- --template=ruby
-```
-
-Using pnpm:
-
-```shell
-pnpm create @shopify/app@latest --template=ruby
-```
-
-This will clone the template and install the CLI in that project.
 
 ### Setting up your Rails app
 
@@ -107,28 +91,13 @@ cd ..
 
 ### Local Development
 
-[The Shopify CLI](https://shopify.dev/docs/apps/tools/cli) connects to an app in your Partners dashboard.
+[The Shopify CLI](https://shopify.dev/docs/apps/build/cli-for-apps) connects to an app in your Partners dashboard.
 It provides environment variables, runs commands in parallel, and updates application URLs for easier development.
 
-You can develop locally using your preferred Node.js package manager.
-Run one of the following commands from the root of your app:
-
-Using yarn:
+You can develop locally by running the following command from the root of your app:
 
 ```shell
-yarn dev
-```
-
-Using npm:
-
-```shell
-npm run dev
-```
-
-Using pnpm:
-
-```shell
-pnpm run dev
+shopify app dev
 ```
 
 Open the URL generated in your console. Once you grant permission to the app, you can start development.
@@ -147,25 +116,13 @@ Once you decide which database to use, you can configure your app to connect to 
 ### Build
 
 The frontend is a single page React app.
-It requires the `SHOPIFY_API_KEY` environment variable, which you can get by running `yarn run info --web-env`.
+It requires the `SHOPIFY_API_KEY` environment variable, which you can get by running `shopify app info --web-env`.
 The CLI will set up the necessary environment variables for the build if you run its `build` command from your app's root:
 
-Using yarn in your app's root folder:
+In your app's root folder:
 
 ```shell
-yarn build --api-key=REPLACE_ME
-```
-
-Using npm:
-
-```shell
-npm run build -- --api-key=REPLACE_ME
-```
-
-Using pnpm:
-
-```shell
-pnpm run build --api-key=REPLACE_ME
+shopify app build --client-id=REPLACE_ME
 ```
 
 The app build command will build both the frontend and backend when running as above.
@@ -173,7 +130,7 @@ If you're manually building (for instance when deploying the `web` folder to pro
 
 ```shell
 cd web/frontend
-SHOPIFY_API_KEY=REPLACE_ME yarn build
+SHOPIFY_API_KEY=REPLACE_ME shopify app build
 cd ..
 rake build:all
 ```
@@ -185,7 +142,7 @@ You can use the [ShopifyAPI](https://github.com/Shopify/shopify-api-ruby) gem to
 * [Make a GraphQL Storefront API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql_storefront.md)
 * [Make a Rest Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/rest.md)
 
-Examples from this app template: 
+Examples from this app template:
 * Making Admin **GraphQL** API request to create products:
     * `ProductCreator#create` (web/app/services/product_creator.rb)
 * Making Admin **Rest** API request to count products:
@@ -246,57 +203,15 @@ We fixed this issue with v3.4.0 of the CLI, so after updating it, you can make t
      ...
    ```
 
-### I can't get past the ngrok "Visit site" page
-
-When you’re previewing your app or extension, you might see an ngrok interstitial page with a warning:
-
-```
-You are about to visit <id>.ngrok.io: Visit Site
-```
-
-If you click the `Visit Site` button, but continue to see this page, then you should run dev using an alternate tunnel URL that you run using tunneling software.
-We've validated that [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/run-tunnel/trycloudflare/) works with this template.
-
-To do that, you can [install the `cloudflared` CLI tool](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/), and run:
-
-```shell
-# Note that you can also use a different port
-cloudflared tunnel --url http://localhost:3000
-```
-
-In a different terminal window, navigate to your app's root and call:
-
-```shell
-# Using yarn
-yarn dev --tunnel-url https://tunnel-url:3000
-# or using npm
-npm run dev --tunnel-url https://tunnel-url:3000
-# or using pnpm
-pnpm dev --tunnel-url https://tunnel-url:3000
-```
-
 ### I'm seeing "App couldn't be loaded"  error due to browser cookies
 - Ensure you're using the latest [shopify_app](https://github.com/Shopify/shopify_app/blob/main/README.md) gem that uses Session Tokens instead of cookies.
     - See ["My app is still using cookies to authenticate"](https://github.com/Shopify/shopify_app/blob/main/docs/Troubleshooting.md#my-app-is-still-using-cookies-to-authenticate)
 - Ensure `shopify.app.toml` is present and contains up to date information for the app's redirect URLS. To reset/update this config, run
 
-Using yarn:
-
 ```shell
-yarn dev --reset
+shopify app dev --reset
 ```
 
-Using npm:
-
-```shell
-npm run dev -- --reset
-```
-
-Using pnpm:
-
-```shell
-pnpm run dev --reset
-```
 
 ## Developer resources
 
