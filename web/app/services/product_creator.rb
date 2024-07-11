@@ -75,7 +75,7 @@ class ProductCreator < ApplicationService
     "frosty",
     "green",
     "long",
-  ]
+  ].freeze
 
   NOUNS = [
     "waterfall",
@@ -109,5 +109,5 @@ class ProductCreator < ApplicationService
     "field",
     "fire",
     "flower",
-  ]
+  ].freeze
 end
