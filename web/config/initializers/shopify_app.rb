@@ -8,7 +8,15 @@ ShopifyApp.configure do |config|
   config.embedded_app = true
   config.after_authenticate_job = false
   config.api_version = ShopifyAPI::AdminVersions::LATEST_SUPPORTED_ADMIN_VERSION
+
+  # Offline Access Tokens Configuration
+  # https://shopify.dev/docs/apps/build/authentication-authorization/access-token-types/offline-access-tokens
   config.shop_session_repository = "Shop"
+
+  # Online Access Tokens Configuration
+  # https://shopify.dev/docs/apps/build/authentication-authorization/access-token-types/online-access-tokens
+  # Uncomment the following line to enable Online Access Tokens:
+  # config.user_session_repository = "User"
 
   config.reauth_on_access_scope_changes = true
   config.new_embedded_auth_strategy = true
