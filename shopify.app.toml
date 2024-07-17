@@ -6,17 +6,17 @@ scopes = "write_products"
 api_version = "2024-07"
 
   [[webhooks.subscriptions]]
-  uri = "/api/webhooks/app_uninstalled"
+  uri = "/api/shopify_webhooks/app_uninstalled"
   topics = [ "app/uninstalled" ]
 
   [[webhooks.subscriptions]]
-  uri = "/api/webhooks/customers_data_request"
+  uri = "/api/shopify_webhooks/customers_data_request"
   compliance_topics = [ "customers/data_request"]
 
   [[webhooks.subscriptions]]
-  uri = "/api/webhooks/customers_redact"
+  uri = "/api/shopify_webhooks/customers_redact"
   compliance_topics = [ "customers/redact" ]
 
   [[webhooks.subscriptions]]
-  uri = "/api/webhooks/shop_redact"
+  uri = "/api/shopify_webhooks/shop_redact"
   compliance_topics = [ "shop/redact" ]
