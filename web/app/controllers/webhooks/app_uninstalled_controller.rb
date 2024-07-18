@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ShopifyWebhooks
+module Webhooks
   class AppUninstalledController < ApplicationController
     include ShopifyApp::WebhookVerification
 
