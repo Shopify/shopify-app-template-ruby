@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 ShopifyApp.configure do |config|
-  config.webhooks = [
-    # After a store owner uninstalls your app, Shopify invokes the APP_UNINSTALLED webhook
-    # to let your app know.
-    { topic: "app/uninstalled", address: "api/webhooks/app_uninstalled" },
-  ]
   config.application_name = "My Shopify App"
   config.old_secret = ""
   config.scope = ENV.fetch("SCOPES", "write_products") # See shopify.app.toml for scopes
@@ -69,36 +64,5 @@ Rails.application.config.after_initialize do
       private_shop: ENV.fetch("SHOPIFY_APP_PRIVATE_SHOP", nil),
       user_agent_prefix: "ShopifyApp/#{ShopifyApp::VERSION}",
     )
-
-    add_privacy_webhooks
-    ShopifyApp::WebhooksManager.add_registrations
-  end
-end
-
-def add_privacy_webhooks
-  privacy_webhooks = [
-    # NOTE: To register the URLs for the three privacy topics that follow, please set the appropriate
-    # webhook endpoint in the 'Privacy webhooks' section of 'App setup' in the Partners Dashboard.
-    # The code that processes these webhooks is located in the `app/jobs` directory.
-    #
-    # 48 hours after a store owner uninstalls your app, Shopify invokes this SHOP_REDACT webhook.
-    # https://shopify.dev/docs/apps/webhooks/configuration/mandatory-webhooks#shop-redact
-    { topic: "shop/redact", address: "api/webhooks/shop_redact" },
-
-    # Store owners can request that data is deleted on behalf of a customer. When this happens,
-    # Shopify invokes this CUSTOMERS_REDACT webhook to let your app know.
-    # https://shopify.dev/docs/apps/webhooks/configuration/mandatory-webhooks#customers-redact
-    { topic: "customers/redact", address: "api/webhooks/customers_redact" },
-
-    # Customers can request their data from a store owner. When this happens, Shopify invokes
-    # this CUSTOMERS_DATA_REQUEST webhook to let your app know.
-    # https://shopify.dev/docs/apps/webhooks/configuration/mandatory-webhooks#customers-data_request
-    { topic: "customers/data_request", address: "api/webhooks/customers_data_request" },
-  ]
-
-  ShopifyApp.configuration.webhooks = if ShopifyApp.configuration.has_webhooks?
-    ShopifyApp.configuration.webhooks.concat(privacy_webhooks)
-  else
-    privacy_webhooks
   end
 end
