@@ -13,6 +13,7 @@ class HomeController < ApplicationController
       redirect_to(ShopifyAPI::Auth.embedded_app_url(params[:host]), allow_other_host: true)
     else
       contents = File.read(File.join(Rails.env.production? ? PROD_INDEX_PATH : DEV_INDEX_PATH, "index.html"))
+      contents.sub!("%VITE_SHOPIFY_API_KEY%", ShopifyApp.configuration.api_key)
 
       render(plain: contents, content_type: "text/html", layout: false)
     end

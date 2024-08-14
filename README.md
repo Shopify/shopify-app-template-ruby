@@ -45,6 +45,9 @@ This template combines a number of third party open source tools:
   - [`@formatjs/intl-locale`](https://formatjs.io/docs/polyfills/intl-locale) is used as a polyfill for [`Intl.Locale`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale) if necessary.
   - [`@formatjs/intl-pluralrules`](https://formatjs.io/docs/polyfills/intl-pluralrules) is used as a polyfill for [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) if necessary.
 
+> [!NOTE]
+> If you'd prefer not to use React, you can [replace it with a Stimulus frontend](https://github.com/Shopify/shopify-app-template-ruby/wiki/Replacing-React-frontend-with-Stimulus).
+
 ## Getting started
 
 ### Requirements
@@ -70,15 +73,20 @@ However, the CLI will not manage your Ruby dependencies automatically, so you wi
 To make the process easier, the template provides a script to run the necessary steps:
 
 1. Start off by switching to the `web` folder:
+
    ```shell
    cd web
    ```
-1. Install the ruby dependencies:
+
+2. Install the ruby dependencies:
+
    ```shell
    bundle install
    ```
-1. Run the [Rails template](https://guides.rubyonrails.org/rails_application_templates.html) script.
+
+3. Run the [Rails template](https://guides.rubyonrails.org/rails_application_templates.html) script.
    It will guide you through setting up your database and set up the necessary keys for encrypted credentials.
+
    ```shell
    bin/rails app:template LOCATION=./template.rb
    ```
@@ -136,17 +144,19 @@ rake build:all
 ```
 
 ### Making your first API call
+
 You can use the [ShopifyAPI](https://github.com/Shopify/shopify-api-ruby) gem to start make authenticated Shopify API calls.
 
-* [Make a GraphQL Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql.md)
-* [Make a GraphQL Storefront API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql_storefront.md)
-* [Make a Rest Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/rest.md)
+- [Make a GraphQL Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql.md)
+- [Make a GraphQL Storefront API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql_storefront.md)
+- [Make a Rest Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/rest.md)
 
 Examples from this app template:
-* Making Admin **GraphQL** API request to create products:
-    * `ProductCreator#create` (web/app/services/product_creator.rb)
-* Making Admin **Rest** API request to count products:
-    * `ProductsController#count` (web/app/controllers/products_controller.rb)
+
+- Making Admin **GraphQL** API request to create products:
+  - `ProductCreator#create` (web/app/services/product_creator.rb)
+- Making Admin **Rest** API request to count products:
+  - `ProductsController#count` (web/app/controllers/products_controller.rb)
 
 ## Hosting
 
@@ -203,15 +213,15 @@ We fixed this issue with v3.4.0 of the CLI, so after updating it, you can make t
      ...
    ```
 
-### I'm seeing "App couldn't be loaded"  error due to browser cookies
+### I'm seeing "App couldn't be loaded" error due to browser cookies
+
 - Ensure you're using the latest [shopify_app](https://github.com/Shopify/shopify_app/blob/main/README.md) gem that uses Session Tokens instead of cookies.
-    - See ["My app is still using cookies to authenticate"](https://github.com/Shopify/shopify_app/blob/main/docs/Troubleshooting.md#my-app-is-still-using-cookies-to-authenticate)
+  - See ["My app is still using cookies to authenticate"](https://github.com/Shopify/shopify_app/blob/main/docs/Troubleshooting.md#my-app-is-still-using-cookies-to-authenticate)
 - Ensure `shopify.app.toml` is present and contains up to date information for the app's redirect URLS. To reset/update this config, run
 
 ```shell
 shopify app dev --reset
 ```
-
 
 ## Developer resources
 
