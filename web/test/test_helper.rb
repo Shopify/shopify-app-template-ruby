@@ -6,6 +6,7 @@ require "rails/test_help"
 
 require "minitest/autorun"
 require "webmock/minitest"
+require "mocha/minitest"
 
 module ActiveSupport
   class TestCase
