@@ -2,7 +2,6 @@
 
 ShopifyApp.configure do |config|
   config.application_name = "My Shopify App"
-  config.old_secret = ""
   config.scope = ENV.fetch("SCOPES", "write_products") # See shopify.app.toml for scopes
   # Consult this page for more scope options: https://shopify.dev/api/usage/access-scopes
   config.embedded_app = true
@@ -41,6 +40,9 @@ ShopifyApp.configure do |config|
 
   config.api_key = ENV.fetch("SHOPIFY_API_KEY", "").presence
   config.secret = ENV.fetch("SHOPIFY_API_SECRET", "").presence
+  # Set `old_secret` to the old secret when rotating client credentials
+  # https://shopify.dev/docs/apps/build/authentication-authorization/client-secrets/rotate-revoke-client-credentials
+  config.old_secret = ""
   config.myshopify_domain = ENV.fetch("SHOP_CUSTOM_DOMAIN", "").presence if ENV.fetch("SHOP_CUSTOM_DOMAIN", "").present?
 
   if defined? Rails::Server
@@ -63,6 +65,7 @@ Rails.application.config.after_initialize do
       log_level: :info,
       private_shop: ENV.fetch("SHOPIFY_APP_PRIVATE_SHOP", nil),
       user_agent_prefix: "ShopifyApp/#{ShopifyApp::VERSION}",
+      old_api_secret_key: ShopifyApp.configuration.old_secret,
     )
   end
 end
