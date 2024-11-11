@@ -28,4 +28,3 @@ class ProductCounter < ApplicationService
     response.body.dig("data", "productsCount")
   end
 end
-
