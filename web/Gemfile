@@ -77,4 +77,4 @@ group :test do
   gem "mocha"
 end
 
-gem "shopify_app", "~> 22.2"
+gem "shopify_app", "~> 23.0"
