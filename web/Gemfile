@@ -77,5 +77,5 @@ group :test do
   gem "mocha"
 end
 
-gem "shopify_api", path: "/Users/zoeylan/src/github.com/Shopify/shopify-api-ruby"
-gem "shopify_app", path: "/Users/zoeylan/src/github.com/Shopify/shopify_app"
+gem "shopify_api", path: "../../shopify-api-ruby"
+gem "shopify_app", path: "../../shopify_app"
