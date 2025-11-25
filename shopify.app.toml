@@ -6,6 +6,10 @@ scopes = "write_products"
 api_version = "2024-10"
 
   [[webhooks.subscriptions]]
+  topics = [ "products/update" ]
+  uri = "/api/webhooks/product_update"
+
+  [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
   uri = "/api/webhooks/app_scopes_update"
 
