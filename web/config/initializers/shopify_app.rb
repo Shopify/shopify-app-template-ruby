@@ -6,7 +6,7 @@ ShopifyApp.configure do |config|
   # Consult this page for more scope options: https://shopify.dev/api/usage/access-scopes
   config.embedded_app = true
   config.after_authenticate_job = false
-  config.api_version = ShopifyAPI::AdminVersions::LATEST_SUPPORTED_ADMIN_VERSION
+  config.api_version = "2025-10"
 
   # Offline Access Tokens Configuration
   # https://shopify.dev/docs/apps/build/authentication-authorization/access-token-types/offline-access-tokens
@@ -19,6 +19,9 @@ ShopifyApp.configure do |config|
 
   config.reauth_on_access_scope_changes = true
   config.new_embedded_auth_strategy = true
+
+  # Automatically trigger re-authentication when the session has expired.
+  config.check_session_expiry_date = true
 
   config.root_url = "/api"
   config.login_url = "/api/auth"
@@ -66,6 +69,7 @@ Rails.application.config.after_initialize do
       private_shop: ENV.fetch("SHOPIFY_APP_PRIVATE_SHOP", nil),
       user_agent_prefix: "ShopifyApp/#{ShopifyApp::VERSION}",
       old_api_secret_key: ShopifyApp.configuration.old_secret,
+      expiring_offline_access_tokens: true,
     )
   end
 end
