@@ -28,7 +28,7 @@ jobs:
         run: if test -f ../yarn.lock || test -f ../pnpm-lock.yaml || test -f ../package-lock.json; then echo "Please don't commit lock files" && exit 1; fi
 
       - name: Set up Ruby ${{ matrix.version }}
-        uses: ruby/setup-ruby@829114fc20da43a41d27359103ec7a63020954d4 # v1.255.0
+        uses: ruby/setup-ruby@ae195bbe749a7cef685ac729197124a48305c1cb # v1.276.0
         with:
           ruby-version: ${{ matrix.version }}
           bundler-cache: true
