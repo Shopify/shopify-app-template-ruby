@@ -10,7 +10,9 @@ class HomeController < ApplicationController
 
   def index
     if ShopifyAPI::Context.embedded? && (!params[:embedded].present? || params[:embedded] != "1")
-      redirect_to(ShopifyAPI::Auth.embedded_app_url(params[:host]), allow_other_host: true)
+      redirect_url = ShopifyAPI::Auth.embedded_app_url(params[:host])
+      redirect_url = ShopifyApp.configuration.root_url if deduced_phishing_attack?(redirect_url)
+      redirect_to(redirect_url, allow_other_host: true)
     else
       contents = File.read(File.join(Rails.env.production? ? PROD_INDEX_PATH : DEV_INDEX_PATH, "index.html"))
       contents.sub!("%VITE_SHOPIFY_API_KEY%", ShopifyApp.configuration.api_key)
