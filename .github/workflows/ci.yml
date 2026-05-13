@@ -27,10 +27,10 @@ jobs:
       - name: Find any lock file
         run: if test -f ../yarn.lock || test -f ../pnpm-lock.yaml || test -f ../package-lock.json; then echo "Please don't commit lock files" && exit 1; fi
 
-      - name: Set up Ruby ${{ matrix.version }}
+      - name: Set up Ruby ${{ matrix.ruby-version }}
         uses: ruby/setup-ruby@829114fc20da43a41d27359103ec7a63020954d4 # v1.255.0
         with:
-          ruby-version: ${{ matrix.version }}
+          ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
 
       - name: Run RuboCop
